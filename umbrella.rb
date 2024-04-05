@@ -1,5 +1,7 @@
 require "http"
 require "json"
+#require 'ascii_charts'
+
 
 pp "Enter a location you wanted me to check"
 location = gets.chomp
@@ -69,10 +71,26 @@ next_twelve_hours.each do |x|
     hours = seconds / 60 / 60
     pp "In #{hours.round} from now, There is a chance of #{precip_prob * 100} % of precipitation probability"
    end  
-end
+
+  end
 
 if any_precp == true
   pp "You might want to carry an umbrella!"
 else
   pp "You probably won’t need an umbrella today."
 end
+
+## Ascii Chart
+
+i = 0
+array = []
+next_twelve_hours.each do |x|
+   precip_prob = x.fetch("precipProbability")
+   precip_time = Time.at(x.fetch("time"))
+   seconds = precip_time - Time.now
+   hours = seconds / 60 / 60
+   array[i] = [hours.round,precip_prob] 
+   i +=1
+  end  
+
+puts AsciiCharts::Cartesian.new([[0, 1], [1, 3], [2, 7], [3, 15], [4, 4]]).draw
