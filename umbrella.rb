@@ -27,6 +27,27 @@ location_hash = geometry_hash.fetch("location")
 
 lat = location_hash.fetch("lat")
 lng = location_hash.fetch("lng")
-pp "#{lat} #{lng}"
+#pp "#{lat} #{lng}"
+
+pirate_weather_key = ENV.fetch("PIRATE_WEATHER_KEY")
+pirate_weather_url = "https://api.pirateweather.net/forecast/#{pirate_weather_key}/#{lat},#{lng}"
+
+raw_pirate_weather_url = HTTP.get(pirate_weather_url)
+parsed_pirate_weather_url = JSON.parse(raw_pirate_weather_url)
+#pp parsed_pirate_weather_url
+
+currently_hash = parsed_pirate_weather_url.fetch("currently")
+#pp currently_hash
+
+current_temp = currently_hash.fetch("temperature")
+pp "The current temperatue is: #{current_temp}"
+
+current_summary = currently_hash.fetch("summary")
+pp " The current situation is: #{current_summary}"
+
+
+
+
+
 
 
