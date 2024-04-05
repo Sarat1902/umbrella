@@ -13,5 +13,12 @@ raw_location_url = HTTP.get(location_url)
 parsed_location_url = JSON.parse(raw_location_url)
 #pp parsed_location_url
 
-geometry_hash = parsed_location_url.fetch("results")
+results_hash = parsed_location_url.fetch("results")
+#pp geometry_hash
+
+geometry_array = results_hash.at(0)
+#pp geometry_array
+
+geometry_hash = geometry_array.fetch("geometry")
 pp geometry_hash
+
