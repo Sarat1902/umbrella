@@ -23,6 +23,10 @@ geometry_hash = geometry_array.fetch("geometry")
 #pp geometry_hash
 
 location_hash = geometry_hash.fetch("location")
-pp location_hash
+#pp location_hash
+
+lat = location_hash.fetch("lat")
+lng = location_hash.fetch("lng")
+pp "#{lat} #{lng}"
 
 
