@@ -1,6 +1,6 @@
 require "http"
 require "json"
-#require 'ascii_charts'
+require 'ascii_charts'
 
 
 pp "Enter a location you wanted me to check"
@@ -63,7 +63,8 @@ any_precp = false
 
 next_twelve_hours.each do |x|
    precip_prob = x.fetch("precipProbability")
-   
+   pp precip_prob
+
    if precip_prob > precip_prob_threshold
     any_precp = true
     precip_time = Time.at(x.fetch("time"))
@@ -89,8 +90,9 @@ next_twelve_hours.each do |x|
    precip_time = Time.at(x.fetch("time"))
    seconds = precip_time - Time.now
    hours = seconds / 60 / 60
-   array[i] = [hours.round,precip_prob] 
+   array[i] = [hours.round,precip_prob.round] 
    i +=1
   end  
 
-puts AsciiCharts::Cartesian.new([[0, 1], [1, 3], [2, 7], [3, 15], [4, 4]]).draw
+pp array
+puts AsciiCharts::Cartesian.new(array).draw
