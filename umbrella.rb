@@ -20,5 +20,9 @@ geometry_array = results_hash.at(0)
 #pp geometry_array
 
 geometry_hash = geometry_array.fetch("geometry")
-pp geometry_hash
+#pp geometry_hash
+
+location_hash = geometry_hash.fetch("location")
+pp location_hash
+
 
