@@ -45,9 +45,34 @@ pp "The current temperatue is: #{current_temp}"
 current_summary = currently_hash.fetch("summary")
 pp " The current situation is: #{current_summary}"
 
+# Next hour summary
+minutely_hash = parsed_pirate_weather_url.fetch("minutely")
+if minutely_hash 
+  next_hour_summary = minutely_hash.fetch("summary")
+  pp "The next hour situation is: #{next_hour_summary}"
+end
 
+# Next 12 hours summary
+hourly_hash = parsed_pirate_weather_url.fetch("hourly")
+hourly_data_array = hourly_hash.fetch("data")
+next_twelve_hours = hourly_data_array[1..12]
+precip_prob_threshold = 0.10
+any_precp = false
 
+next_twelve_hours.each do |x|
+   precip_prob = x.fetch("precipProbability")
+   
+   if precip_prob > precip_prob_threshold
+    any_precp = true
+    precip_time = Time.at(x.fetch("time"))
+    seconds = precip_time - Time.now
+    hours = seconds / 60 / 60
+    pp "In #{hours.round} from now, There is a chance of #{precip_prob * 100} % of precipitation probability"
+   end  
+end
 
-
-
-
+if any_precp == true
+  pp "You might want to carry an umbrella!"
+else
+  pp "You probably won’t need an umbrella today."
+end
